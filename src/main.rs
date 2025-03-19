@@ -21,7 +21,7 @@ async fn main() -> Result<()> {
         App::new()
             .wrap(Compress::default())
             .wrap(Logger::default())
-            .service(services::serve_dir(dir.clone()))
+            .service(services::serve_dir(&dir))
     })
     .bind(("0.0.0.0", port))?
     .run()
