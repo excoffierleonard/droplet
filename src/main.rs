@@ -1,10 +1,10 @@
-use actix_web::{App, HttpServer, middleware::Compress, middleware::Logger};
+use actix_web::{App, HttpServer, main, middleware::Compress, middleware::Logger};
 use env_logger::Env;
 use std::{env, fs, io::Result};
 
 use droplet::services;
 
-#[actix_web::main]
+#[main]
 async fn main() -> Result<()> {
     env_logger::init_from_env(Env::new().default_filter_or("info"));
     dotenvy::dotenv().ok();
