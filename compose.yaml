@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+    image: ghcr.io/excoffierleonard/droplet:latest
+    restart: unless-stopped
+    volumes:
+      - share:/app/share
+    ports:
+      - "${PORT:-8080}:8080"
+
+volumes:
+  share: {}
