@@ -1,7 +1,8 @@
-use actix_files::Files;
 use actix_web::{App, HttpServer, main, middleware::Compress, middleware::Logger};
 use env_logger::Env;
 use std::{env, fs, io::Result};
+
+use droplet::services;
 
 #[main]
 async fn main() -> Result<()> {
@@ -20,7 +21,7 @@ async fn main() -> Result<()> {
         App::new()
             .wrap(Compress::default())
             .wrap(Logger::default())
-            .service(Files::new("/", &dir).show_files_listing())
+            .service(services::serve_dir(&dir))
     })
     .bind(("0.0.0.0", port))?
     .run()
