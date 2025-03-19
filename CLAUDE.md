@@ -34,3 +34,4 @@
 - Use environment variables with dotenvy for configuration
 - Apply actix-web middleware consistently (Logger, Compress)
 - Keep main.rs focused on application setup, with business logic in lib.rs
+- Use cargo-chef for optimized Docker builds
