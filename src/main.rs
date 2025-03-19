@@ -1,9 +1,10 @@
-use actix_files::Files;
-use actix_web::{App, HttpServer, main, middleware::Compress, middleware::Logger};
+use actix_web::{App, HttpServer, middleware::Compress, middleware::Logger};
 use env_logger::Env;
 use std::{env, fs, io::Result};
 
-#[main]
+use droplet::services;
+
+#[actix_web::main]
 async fn main() -> Result<()> {
     env_logger::init_from_env(Env::new().default_filter_or("info"));
     dotenvy::dotenv().ok();
@@ -20,7 +21,7 @@ async fn main() -> Result<()> {
         App::new()
             .wrap(Compress::default())
             .wrap(Logger::default())
-            .service(Files::new("/", &dir).show_files_listing())
+            .service(services::serve_dir(dir.clone()))
     })
     .bind(("0.0.0.0", port))?
     .run()
