@@ -8,6 +8,17 @@ services:
       - share:/app/share
     ports:
       - "${PORT:-8080}:8080"
+    depends_on:
+      - sftp_server
+
+  sftp_server:
+    image: ghcr.io/excoffierleonard/sftp_server:latest
+    environment:
+      SFTP_USER_PASSWORD: ${SFTP_USER_PASSWORD}
+    ports:
+      - "${SFTP_SERVER_PORT:-22}:22"
+    volumes:
+      - share:/mnt/sftp_server
 
 volumes:
   share: {}
